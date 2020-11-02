@@ -1,5 +1,6 @@
 package BankingManagement.service;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import BankingManagement.pojos.Account;
@@ -10,6 +11,7 @@ public class BankingServiceImpl implements BankingService {
 	
 	CustomCacheServiceImpl<Account> cache = new CustomCacheServiceImpl<>();	
 	
+	
 	public BankingServiceImpl() {
 		// TODO Auto-generated constructor stub
 	}
@@ -19,7 +21,8 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public void deposit(Account account, int amount) {
-		// TODO Auto-generated method stub
+		account = cache.retrieveItem(account);
+		
 		
 	}
 	

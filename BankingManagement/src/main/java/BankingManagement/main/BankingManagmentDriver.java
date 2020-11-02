@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import BankingManagement.pojos.Account;
 import BankingManagement.service.AccountServiceImpl;
+import BankingManagement.service.BankingService;
 import BankingManagement.service.BankingServiceImpl;
 
 /**
@@ -23,6 +24,7 @@ public class BankingManagmentDriver {
 	AccountServiceImpl accountService = new AccountServiceImpl();
 	boolean loggedIn = false;
 	Account account = new Account();
+	String input;
 	
 	public static void main(String[] args) {
 		
@@ -66,6 +68,7 @@ public class BankingManagmentDriver {
 	}
 	
 	public void login() {
+		loggedIn = false;
 		System.out.println("What is your name / username?");
 		String name = scan.nextLine();
 		System.out.println("What is your password?");
@@ -78,6 +81,7 @@ public class BankingManagmentDriver {
 	}
 	
 	public void createNewAccount() {
+		loggedIn = false;
 		System.out.println("Please enter a new name / username");
 		String name = scan.nextLine();
 		System.out.println("Please enter a new password");
@@ -87,7 +91,21 @@ public class BankingManagmentDriver {
 	
 	public void manageFunds() {
 		if(loggedIn = true) {
-			
+			System.out.println("Would you like to view, add, or remove funds?");
+			input = scan.nextLine();
+			switch(input) {
+			case "view":
+				viewFunds();
+				break;
+			case "add":
+				addFunds();
+				break;
+			case "remove":
+				removeFunds();
+				break;
+			default:
+				System.out.println("Invalid input");
+			}
 		}
 		else {
 			System.out.println("Please login first");
@@ -95,6 +113,21 @@ public class BankingManagmentDriver {
 		}
 	}
 	
+	public void viewFunds() {
+		bankService.retrieveBalance(account);
+	}
+	
+	public void addFunds() {
+		System.out.println("How much would you like to add?");
+		int amount = scan.nextInt();
+		bankService.deposit(account, amount);
+	}
+	
+	public void removeFunds() {
+		System.out.println("How much would you like to remove?");
+		int amount = scan.nextInt();
+		bankService.withdrawl(account, amount);
+	}
 	public void applyForLoan() {
 		
 	}
