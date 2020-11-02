@@ -5,6 +5,10 @@ package BankingManagement.main;
 
 import java.util.Scanner;
 
+import BankingManagement.pojos.Account;
+import BankingManagement.service.AccountServiceImpl;
+import BankingManagement.service.CreditServiceImpl;
+
 /**
  * @author Zachary Leonardo
  *
@@ -15,11 +19,13 @@ public class BankingManagmentDriver {
 	 */
 	
 	private static Scanner scan = new Scanner(System.in);
-	
+	CreditServiceImpl creditService = new CreditServiceImpl();
+	AccountServiceImpl accountService = new AccountServiceImpl();
 	
 	public static void main(String[] args) {
 		
 		String userInput;
+		BankingManagmentDriver driver = new BankingManagmentDriver();
 		
 		do {
 			System.out.println("Welcome to the Bank Manager");
@@ -35,24 +41,52 @@ public class BankingManagmentDriver {
 			switch(userInput) {
 			
 			case "1":
-
-				System.out.println("What is your name / username?");
-				String name = scan.nextLine();
-				System.out.println("What is your password?");
-				String password = scan.nextLine();
+				driver.login();
 				break;
 			case "2":
+				driver.createNewAccount();
 				break;
 			case "3":
+				driver.viewCredit();
+				break;
+			case "4":
+				driver.applyForLoan();
 				break;
 			case "0":
 				System.out.println("Thank you");
 				break;
 			default:
 				System.out.println("Invalid input");
+			}
 			
 		} while(!"0".equals(userInput));
 
 	}
-
+	
+	public void login() {
+		System.out.println("What is your name / username?");
+		String name = scan.nextLine();
+		System.out.println("What is your password?");
+		String password = scan.nextLine();
+		Account account = accountService.authenticate(name, password);
+		if(account != null) {
+			System.out.println("Successfully logged in to account " + account.toString());
+		}
+	}
+	
+	public void createNewAccount() {
+		System.out.println("Please enter a new name / username");
+		String name = scan.nextLine();
+		System.out.println("Please enter a new password");
+		String password = scan.nextLine();
+		accountService.createAccount(name, password);
+	}
+	
+	public void viewCredit() {
+		
+	}
+	
+	public void applyForLoan() {
+		
+	}
 }
