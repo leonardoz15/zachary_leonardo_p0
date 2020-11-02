@@ -15,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import BankingManagement.pojos.Account;
+import BankingManagement.service.CustomCacheServiceImpl;
 
 /**
  * @author Zachary Leonardo
@@ -22,6 +23,7 @@ import BankingManagement.pojos.Account;
  */
 public class CustomCacheServiceImplTest {
 	
+	private CustomCacheServiceImpl<Account> cacheService;
 	private static Set<Account> testCache;
 	/**
 	 * @throws java.lang.Exception
@@ -45,6 +47,13 @@ public class CustomCacheServiceImplTest {
 	public void setUp() throws Exception {
 		Account account1 = new Account("Zach","Password",0);
 		Account account2 = new Account("Jake","another word",1);
+		Account account3 = new Account(null,null,0);
+		
+		testCache.add(account1);
+		testCache.add(account2);
+		testCache.add(account3);
+		
+		cacheService = new CustomCacheServiceImpl<Account>(testCache);
 	}
 
 	/**
@@ -56,8 +65,26 @@ public class CustomCacheServiceImplTest {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void addSimpleAccountToCacheTest() {
+		
+		Account accountToAdd = new Account("John Doe", "cOoL PasSwoRd", 0);
+		cacheService.addToCache(accountToAdd);
+		assertEquals("Account " + accountToAdd.toString() + " should be in cache", true, testCache.contains(accountToAdd));
 	}
+	
+	@Test
+	public void removeSimpleAccountFromCacheTest() {
+		
+		Account accountToRemove = new Account("Jake", "another word",1);
+		cacheService.removeFromCache(accountToRemove);
+		assertEquals("Account "+ accountToRemove.toString() + " shouldn't be in the cache", false, testCache.contains(accountToRemove));
+	}
+	
+	@Test
+	public void retrieveSimpleAccountFromCacheTest() {
+		Account accountToRetrieve = new Account("Zach","Password",0);
+		assertEquals("Account " + accountToRetrieve.toString() + " should be retrieved", accountToRetrieve, cacheService.retrieveItem(accountToRetrieve));
+	}
+	
 
 }
