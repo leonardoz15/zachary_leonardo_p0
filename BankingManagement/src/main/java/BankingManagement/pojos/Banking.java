@@ -19,6 +19,13 @@ public class Banking {
 	public Banking() {
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public Banking(Account account, double currentBalance) {
+		super();
+		this.account = account;
+		this.currentBalance = currentBalance;
+	}
 
 	/**
 	 * @return the account
