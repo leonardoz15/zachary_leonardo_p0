@@ -4,29 +4,42 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import BankingManagement.pojos.Account;
+import BankingManagement.pojos.Banking;
 
 public class BankingServiceImpl implements BankingService {
 
 	Scanner scan = new Scanner(System.in);
 	
-	CustomCacheServiceImpl<Account> cache = new CustomCacheServiceImpl<>();	
+	private CustomCacheServiceImpl<Banking> bankingCache = new CustomCacheServiceImpl<Banking>();	
 	
-	
+
 	public BankingServiceImpl() {
-		// TODO Auto-generated constructor stub
+		super();
+	}
+	
+	public BankingServiceImpl(CustomCacheServiceImpl<Banking> bankingCache) {
+		super();
+		this.bankingCache = bankingCache;
+	}
+
+	/**
+	 * @param bankingCache the bankingCache to set
+	 */
+	public void setBankingCache(CustomCacheServiceImpl<Banking> bankingCache) {
+		this.bankingCache = bankingCache;
 	}
 	
 	/*
-	 * Add funds to designated account
+	 * Add funds to designated account in banking cache
 	 */
 	@Override
 	public void deposit(Account account, int amount) {
-		account = cache.retrieveItem(account);
+	
 		
 	}
 	
 	/*
-	 * Take funds out of designated account
+	 * Take funds out of designated account in banking cache
 	 */
 	@Override
 	public void withdrawl(Account account, int amount) {
@@ -35,7 +48,7 @@ public class BankingServiceImpl implements BankingService {
 	}
 	
 	/*
-	 * return the balance of the designated account
+	 * return the balance of the designated account in banking cache
 	 */
 	@Override
 	public double retrieveBalance(Account account) {
@@ -43,10 +56,5 @@ public class BankingServiceImpl implements BankingService {
 		return 0;
 	}
 	
-	/*
-	 * Add funds to specified account in cache
-	 */
-
-
 
 }

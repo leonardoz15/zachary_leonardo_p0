@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import BankingManagement.pojos.Account;
 import BankingManagement.pojos.Banking;
+import BankingManagement.service.BankingServiceImpl;
 import BankingManagement.service.CustomCacheServiceImpl;
 
 /**
@@ -26,6 +27,7 @@ public class BankingServiceImplTest {
 	
 	private CustomCacheServiceImpl<Banking> cacheService;
 	private static Set<Banking> testCache;
+	private BankingServiceImpl bankingService;
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -64,10 +66,31 @@ public class BankingServiceImplTest {
 	public void tearDown() throws Exception {
 		testCache.clear();
 	}
-
+	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void retrieveBalanceFromAccountTest() {
+		int balanceToTest = 100;
+		Account accountToTest = new Account("Jake","word",0);
+		testCache.add(new Banking(accountToTest, balanceToTest));
+		assertEquals("Account balance should be 100", 100, bankingService.retrieveBalance(accountToTest));
+	}
+	@Test
+	public void depostToAccountTest() {
+		int amountToAdd = 100;
+		Account accountToTest = new Account("Zach","Password",0);
+		testCache.add(new Banking(accountToTest, 0));
+		bankingService.deposit(accountToTest, amountToAdd);
+		assertEquals("Account balance should be 100", 100, bankingService.retrieveBalance(accountToTest));
+	}
+	
+	@Test
+	public void withdrawlFromAccountTest() {
+		int amountToWithdrawl = 100;
+		Account accountToTest = new Account("Jake","word",0);
+		testCache.add(new Banking(accountToTest, 100));
+		bankingService.withdrawl(accountToTest, amountToWithdrawl);
+		assertEquals("Account balance should be 0", 0, bankingService.retrieveBalance(accountToTest));
+		
 	}
 
 }
