@@ -34,8 +34,9 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public void deposit(Account account, int amount) {
-	
 		
+		Banking bank = new Banking(account,amount);
+		bankingCache.addToCache(bank);	
 	}
 	
 	/*
