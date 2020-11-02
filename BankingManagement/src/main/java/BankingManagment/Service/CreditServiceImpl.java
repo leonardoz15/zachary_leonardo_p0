@@ -1,8 +1,8 @@
 package BankingManagment.Service;
 
-public class LoanService {
+public class CreditServiceImpl {
 
-	public LoanService() {
+	public CreditServiceImpl() {
 		// TODO Auto-generated constructor stub
 	}
 

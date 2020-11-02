@@ -35,6 +35,11 @@ public class BankingManagmentDriver {
 			switch(userInput) {
 			
 			case "1":
+
+				System.out.println("What is your name / username?");
+				String name = scan.nextLine();
+				System.out.println("What is your password?");
+				String password = scan.nextLine();
 				break;
 			case "2":
 				break;
