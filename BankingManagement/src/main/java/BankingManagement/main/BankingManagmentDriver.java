@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import BankingManagement.pojos.Account;
 import BankingManagement.service.AccountServiceImpl;
-import BankingManagement.service.CreditServiceImpl;
+import BankingManagement.service.BankingServiceImpl;
 
 /**
  * @author Zachary Leonardo
@@ -19,8 +19,10 @@ public class BankingManagmentDriver {
 	 */
 	
 	private static Scanner scan = new Scanner(System.in);
-	CreditServiceImpl creditService = new CreditServiceImpl();
+	BankingServiceImpl bankService = new BankingServiceImpl();
 	AccountServiceImpl accountService = new AccountServiceImpl();
+	boolean loggedIn = false;
+	Account account = new Account();
 	
 	public static void main(String[] args) {
 		
@@ -32,7 +34,7 @@ public class BankingManagmentDriver {
 			System.out.println("Please choose one of the following");
 			System.out.println("[1] login");
 			System.out.println("[2] create a new account");
-			System.out.println("[3] view credit information");
+			System.out.println("[3] manage your account");
 			System.out.println("[4] apply for a loan");
 			System.out.println("[0] exit");
 			
@@ -47,7 +49,7 @@ public class BankingManagmentDriver {
 				driver.createNewAccount();
 				break;
 			case "3":
-				driver.viewCredit();
+				driver.manageFunds();
 				break;
 			case "4":
 				driver.applyForLoan();
@@ -68,9 +70,10 @@ public class BankingManagmentDriver {
 		String name = scan.nextLine();
 		System.out.println("What is your password?");
 		String password = scan.nextLine();
-		Account account = accountService.authenticate(name, password);
+		account = accountService.authenticate(name, password);
 		if(account != null) {
 			System.out.println("Successfully logged in to account " + account.toString());
+			loggedIn = true;
 		}
 	}
 	
@@ -82,8 +85,14 @@ public class BankingManagmentDriver {
 		accountService.createAccount(name, password);
 	}
 	
-	public void viewCredit() {
-		
+	public void manageFunds() {
+		if(loggedIn = true) {
+			
+		}
+		else {
+			System.out.println("Please login first");
+			login();
+		}
 	}
 	
 	public void applyForLoan() {

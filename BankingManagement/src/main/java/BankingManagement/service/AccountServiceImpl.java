@@ -41,6 +41,7 @@ public class AccountServiceImpl implements AccountService {
 		int id = (int)Math.random()* 100;
 		Account account = new Account(name, password, id);
 		cache.addToCache(account);
+		System.out.println("Created new account " + account.toString());
 		
 	}
 	
