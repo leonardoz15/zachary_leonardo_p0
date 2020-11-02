@@ -7,7 +7,10 @@ public class Account {
 	private String password;
 	
 	private int id;
-
+	
+	/*
+	 * Java object for holding account information
+	 */
 	public Account(String name, String password, int id) {
 		super();
 		this.name = name;
