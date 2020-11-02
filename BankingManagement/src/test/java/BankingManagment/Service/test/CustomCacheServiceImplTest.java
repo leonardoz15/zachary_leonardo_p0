@@ -86,5 +86,11 @@ public class CustomCacheServiceImplTest {
 		assertEquals("Account " + accountToRetrieve.toString() + " should be retrieved", accountToRetrieve, cacheService.retrieveItem(accountToRetrieve));
 	}
 	
+	@Test
+	public void retrieveSimpleAccountNotInCacheTest() {
+		Account accountToRetrieve = new Account("John","Password",0);
+		assertFalse("Account " + accountToRetrieve.toString() + " shouldn't be retrieved", testCache.contains(accountToRetrieve));
+	}
+	
 
 }
