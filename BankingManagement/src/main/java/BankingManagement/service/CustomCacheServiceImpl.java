@@ -1,4 +1,4 @@
-package BankingManagment.Service;
+package BankingManagement.service;
 
 import java.util.HashSet;
 import java.util.List;

@@ -1,4 +1,4 @@
-package BankingManagment.Service;
+package BankingManagement.service;
 
 public class LoanServiceImpl {
 

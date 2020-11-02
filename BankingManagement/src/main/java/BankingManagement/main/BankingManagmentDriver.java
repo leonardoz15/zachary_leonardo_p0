@@ -1,7 +1,7 @@
 /**
  * 
  */
-package BankingManagement.Main;
+package BankingManagement.main;
 
 import java.util.Scanner;
 

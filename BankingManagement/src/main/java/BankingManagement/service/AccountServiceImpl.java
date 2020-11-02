@@ -1,8 +1,8 @@
-package BankingManagment.Service;
+package BankingManagement.service;
 
 import java.util.Scanner;
 
-import BankingManagment.pojos.Account;
+import BankingManagement.pojos.Account;
 
 public class AccountServiceImpl implements AccountService {
 

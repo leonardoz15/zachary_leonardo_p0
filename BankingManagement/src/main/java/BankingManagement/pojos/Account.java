@@ -1,4 +1,4 @@
-package BankingManagment.pojos;
+package BankingManagement.pojos;
 
 public class Account {
 

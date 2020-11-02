@@ -1,6 +1,6 @@
-package BankingManagment.Service;
+package BankingManagement.service;
 
-import BankingManagment.pojos.Account;
+import BankingManagement.pojos.Account;
 
 public interface AccountService {
 
