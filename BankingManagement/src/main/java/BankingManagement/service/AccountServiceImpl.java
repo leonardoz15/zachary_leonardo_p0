@@ -2,6 +2,7 @@ package BankingManagement.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import BankingManagement.pojos.Account;
@@ -39,8 +40,8 @@ public class AccountServiceImpl implements AccountService {
 	 */
 	@Override
 	public void createAccount(String name, String password) {
-		
-		int id = (int)Math.random()* 100;
+		Random r = new Random();
+		int id = (r.nextInt(100));
 		Account account = new Account(name, password, id);
 		cache.addToCache(account);
 		System.out.println("Created new account " + account.toString());

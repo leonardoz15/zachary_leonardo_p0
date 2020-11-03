@@ -20,6 +20,7 @@ public class BankingServiceImpl implements BankingService {
 	public BankingServiceImpl(CustomCacheServiceImpl<Banking> bankingCache) {
 		super();
 		this.bankingCache = bankingCache;
+		bankingCache.emptyCache();
 	}
 
 	/**
@@ -34,6 +35,7 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public void deposit(Account account, int amount) {
+		setBankingCache(bankingCache);
 		
 		for( Banking bank : bankingCache.retrieveAllItems()) {
 			if(bank.getAccount().equals(account)) {
@@ -51,6 +53,8 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public void withdrawl(Account account, int amount) {
+		setBankingCache(bankingCache);
+
 		for( Banking bank : bankingCache.retrieveAllItems()) {
 			if(bank.getAccount().equals(account)) {
 				bank.setCurrentBalance(bank.getCurrentBalance() - amount);
@@ -67,6 +71,8 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public double retrieveBalance(Account account) {
+		setBankingCache(bankingCache);
+
 		for( Banking bank : bankingCache.retrieveAllItems()) {
 			if(bank.getAccount().equals(account)) {
 				return bank.getCurrentBalance();

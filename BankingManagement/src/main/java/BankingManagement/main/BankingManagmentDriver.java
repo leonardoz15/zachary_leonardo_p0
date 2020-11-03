@@ -20,11 +20,10 @@ public class BankingManagmentDriver {
 	 */
 	
 	private static Scanner scan = new Scanner(System.in);
-	BankingServiceImpl bankService = new BankingServiceImpl();
-	AccountServiceImpl accountService = new AccountServiceImpl();
-	boolean loggedIn = false;
-	Account account = new Account();
-	String input;
+	private static BankingServiceImpl bankService = new BankingServiceImpl();
+	private static AccountServiceImpl accountService = new AccountServiceImpl();
+	private boolean loggedIn = false;
+	private static Account account = new Account();
 	
 	public static void main(String[] args) {
 		
@@ -61,6 +60,7 @@ public class BankingManagmentDriver {
 				break;
 			default:
 				System.out.println("Invalid input");
+				break;
 			}
 			
 		} while(!"0".equals(userInput));
@@ -77,6 +77,7 @@ public class BankingManagmentDriver {
 		if(account != null) {
 			System.out.println("Successfully logged in to account " + account.toString());
 			loggedIn = true;
+			manageFunds();
 		}
 	}
 	
@@ -90,7 +91,8 @@ public class BankingManagmentDriver {
 	}
 	
 	public void manageFunds() {
-		if(loggedIn = true) {
+		String input;
+		if(loggedIn == true) {
 			System.out.println("Would you like to view, add, or remove funds?");
 			input = scan.nextLine();
 			switch(input) {
@@ -114,19 +116,21 @@ public class BankingManagmentDriver {
 	}
 	
 	public void viewFunds() {
-		bankService.retrieveBalance(account);
+		System.out.println("Current balance: " + bankService.retrieveBalance(account));
 	}
 	
 	public void addFunds() {
 		System.out.println("How much would you like to add?");
 		int amount = scan.nextInt();
 		bankService.deposit(account, amount);
+		System.out.println("New balance: " + bankService.retrieveBalance(account));
 	}
 	
 	public void removeFunds() {
 		System.out.println("How much would you like to remove?");
 		int amount = scan.nextInt();
 		bankService.withdrawl(account, amount);
+		System.out.println("New balance: " + bankService.retrieveBalance(account));
 	}
 	public void applyForLoan() {
 		
