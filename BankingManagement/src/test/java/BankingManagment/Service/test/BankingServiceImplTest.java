@@ -48,7 +48,7 @@ public class BankingServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		Banking bank1 = new Banking(new Account("Zach","Password",0), 200);
-		Banking bank2 = new Banking(new Account("Jake","word",0), 100);
+		Banking bank2 = new Banking(new Account("Jake","word",0), 200);
 		Banking bank3 = new Banking(new Account(null,null,0), 0);
 		
 		cacheService.addToCache(bank1);
@@ -71,7 +71,7 @@ public class BankingServiceImplTest {
 		int balanceToTest = 100;
 		Account accountToTest = new Account("Jake","word",0);
 		cacheService.addToCache(new Banking(accountToTest, balanceToTest));
-		assertEquals("Account balance should be 100", 100, bankingService.retrieveBalance(accountToTest));
+		assertEquals("Account balance should be 100", 100, bankingService.retrieveBalance(accountToTest),0);
 	}
 	@Test
 	public void depostToAccountTest() {
@@ -79,16 +79,16 @@ public class BankingServiceImplTest {
 		Account accountToTest = new Account("Zach","Password",0);
 		cacheService.addToCache(new Banking(accountToTest, 0));
 		bankingService.deposit(accountToTest, amountToAdd);
-		assertEquals("Account balance should be 100", 100, bankingService.retrieveBalance(accountToTest));
+		assertEquals("Account balance should be 100", 300, bankingService.retrieveBalance(accountToTest),0);
 	}
 	
 	@Test
 	public void withdrawlFromAccountTest() {
 		int amountToWithdrawl = 100;
 		Account accountToTest = new Account("Jake","word",0);
-		cacheService.addToCache(new Banking(accountToTest, 100));
+		cacheService.addToCache(new Banking(accountToTest, 200));
 		bankingService.withdrawl(accountToTest, amountToWithdrawl);
-		assertEquals("Account balance should be 0", 0, bankingService.retrieveBalance(accountToTest));
+		assertEquals("Account balance should be 100", 100, bankingService.retrieveBalance(accountToTest),0);
 		
 	}
 

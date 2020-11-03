@@ -35,8 +35,15 @@ public class BankingServiceImpl implements BankingService {
 	@Override
 	public void deposit(Account account, int amount) {
 		
-		Banking bank = new Banking(account,amount);
-		bankingCache.addToCache(bank);	
+		for( Banking bank : bankingCache.retrieveAllItems()) {
+			if(bank.getAccount().equals(account)) {
+				bank.setCurrentBalance(bank.getCurrentBalance() + amount);
+			}
+			else {
+				Banking newBank = new Banking(account,amount);
+				bankingCache.addToCache(bank);	
+			}
+		}
 	}
 	
 	/*
@@ -44,7 +51,14 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public void withdrawl(Account account, int amount) {
-		// TODO Auto-generated method stub
+		for( Banking bank : bankingCache.retrieveAllItems()) {
+			if(bank.getAccount().equals(account)) {
+				bank.setCurrentBalance(bank.getCurrentBalance() - amount);
+			}
+			else {
+				System.out.println("No account found");
+			}
+		}
 		
 	}
 	
@@ -53,7 +67,15 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public double retrieveBalance(Account account) {
-		// TODO Auto-generated method stub
+		for( Banking bank : bankingCache.retrieveAllItems()) {
+			if(bank.getAccount().equals(account)) {
+				return bank.getCurrentBalance();
+			}
+			else {
+				System.out.println("No account found");
+				return 0;
+			}
+		}
 		return 0;
 	}
 	
