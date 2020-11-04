@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import BankingManagement.pojos.Account;
 
 public class AccountServiceImpl implements AccountService {
-
+	
+	private static Logger log = Logger.getRootLogger();
 	Scanner scan = new Scanner(System.in);
 	
 	CustomCacheServiceImpl<Account> cache = new CustomCacheServiceImpl<>();
@@ -31,6 +34,7 @@ public class AccountServiceImpl implements AccountService {
 			}
 		}
 		System.out.println("Failed to authenticate, incorrect name / password.");
+		log.warn("Failed login attempt");
 		return null;
 		
 	}
@@ -45,6 +49,7 @@ public class AccountServiceImpl implements AccountService {
 		Account account = new Account(name, password, id);
 		cache.addToCache(account);
 		System.out.println("Created new account " + account.toString());
+		log.info("Successfully created new account" + account.toString());
 		
 	}
 	

@@ -5,6 +5,8 @@ package BankingManagement.main;
 
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import BankingManagement.pojos.Account;
 import BankingManagement.service.AccountServiceImpl;
 import BankingManagement.service.BankingService;
@@ -18,7 +20,7 @@ public class BankingManagmentDriver {
 	/**
 	 * @param args
 	 */
-	
+	private static Logger log = Logger.getRootLogger();
 	private static Scanner scan = new Scanner(System.in);
 	private static BankingServiceImpl bankService = new BankingServiceImpl();
 	private static AccountServiceImpl accountService = new AccountServiceImpl();
@@ -29,6 +31,7 @@ public class BankingManagmentDriver {
 		
 		String userInput;
 		BankingManagmentDriver driver = new BankingManagmentDriver();
+		log.info("Program has started");
 		
 		do {
 			System.out.println("Welcome to the Bank Manager");
@@ -60,6 +63,7 @@ public class BankingManagmentDriver {
 				break;
 			default:
 				System.out.println("Invalid input");
+				log.warn("Invalid input in main menu");
 				break;
 			}
 			
@@ -69,6 +73,7 @@ public class BankingManagmentDriver {
 	
 	public void login() {
 		loggedIn = false;
+		log.info("Logging in");
 		System.out.println("What is your name / username?");
 		String name = scan.nextLine();
 		System.out.println("What is your password?");
@@ -77,12 +82,14 @@ public class BankingManagmentDriver {
 		if(account != null) {
 			System.out.println("Successfully logged in to account " + account.toString());
 			loggedIn = true;
+			log.info("Logged in sucessfully to account " + account.toString());
 			manageFunds();
 		}
 	}
 	
 	public void createNewAccount() {
 		loggedIn = false;
+		log.info("Creating new account");
 		System.out.println("Please enter a new name / username");
 		String name = scan.nextLine();
 		System.out.println("Please enter a new password");
@@ -107,6 +114,7 @@ public class BankingManagmentDriver {
 				break;
 			default:
 				System.out.println("Invalid input");
+				log.warn("Invalid input in manage funds");
 			}
 		}
 		else {

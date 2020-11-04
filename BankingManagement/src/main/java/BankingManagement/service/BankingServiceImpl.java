@@ -3,11 +3,14 @@ package BankingManagement.service;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import BankingManagement.pojos.Account;
 import BankingManagement.pojos.Banking;
 
 public class BankingServiceImpl implements BankingService {
-
+	
+	private static Logger log = Logger.getRootLogger();
 	Scanner scan = new Scanner(System.in);
 	
 	private CustomCacheServiceImpl<Banking> bankingCache = new CustomCacheServiceImpl<Banking>();	
@@ -40,10 +43,12 @@ public class BankingServiceImpl implements BankingService {
 		for( Banking bank : bankingCache.retrieveAllItems()) {
 			if(bank.getAccount().equals(account)) {
 				bank.setCurrentBalance(bank.getCurrentBalance() + amount);
+				log.info("Added " + amount + " to account " + account.toString());
 			}
 			else {
 				Banking newBank = new Banking(account,amount);
-				bankingCache.addToCache(bank);	
+				bankingCache.addToCache(newBank);	
+				log.info("Created new account with balance " + amount);
 			}
 		}
 	}
@@ -58,6 +63,7 @@ public class BankingServiceImpl implements BankingService {
 		for( Banking bank : bankingCache.retrieveAllItems()) {
 			if(bank.getAccount().equals(account)) {
 				bank.setCurrentBalance(bank.getCurrentBalance() - amount);
+				log.info("Removed " + amount + " from account " + account.toString());
 			}
 			else {
 				System.out.println("No account found");
