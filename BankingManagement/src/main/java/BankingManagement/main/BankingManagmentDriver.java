@@ -31,7 +31,7 @@ public class BankingManagmentDriver {
 		
 		
 		BankingManagmentDriver driver = new BankingManagmentDriver();
-		log.info("Program has started");
+		log.trace("Program has started");
 		
 		while(!"0".equals(userInput)) {
 			System.out.println("Welcome to the Bank Manager");
@@ -71,7 +71,7 @@ public class BankingManagmentDriver {
 	
 	public void login() {
 		loggedIn = false;
-		log.info("Logging in");
+		log.trace("Logging in");
 		System.out.println("What is your name / username?");
 		String name = scan.nextLine();
 		System.out.println("What is your password?");
@@ -92,7 +92,7 @@ public class BankingManagmentDriver {
 	
 	public void createNewAccount() {
 		loggedIn = false;
-		log.info("Creating new account");
+		log.trace("Creating new account");
 		System.out.println("Please enter a new name / username");
 		String name = scan.nextLine();
 		System.out.println("Please enter a new password");
