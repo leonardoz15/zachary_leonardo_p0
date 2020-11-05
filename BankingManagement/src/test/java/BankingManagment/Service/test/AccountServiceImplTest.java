@@ -16,11 +16,12 @@ import BankingManagement.service.CustomCacheServiceImpl;
 public class AccountServiceImplTest {
 	
 	private static CustomCacheServiceImpl<Account> cacheService;
-	private static AccountServiceImpl accountService = new AccountServiceImpl();
+	private static AccountServiceImpl accountService; 
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		cacheService = new CustomCacheServiceImpl<Account>();
+		accountService = new AccountServiceImpl(cacheService);
 	}
 
 	@AfterClass

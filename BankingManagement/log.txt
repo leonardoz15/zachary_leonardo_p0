@@ -287,3 +287,5 @@
 2020-11-05 15:12:28 INFO  root:51 - Successfully created new Account [name=Zach, password=password, id=20]
 2020-11-05 15:14:59 INFO  root:51 - Successfully created new Account [name=Zach, password=password, id=98]
 2020-11-05 15:14:59 INFO  root:51 - Successfully created new Account [name=Zach, password=password, id=32]
+2020-11-05 15:18:36 INFO  root:57 - Successfully created new Account [name=Zach, password=password, id=21]
+2020-11-05 15:18:36 INFO  root:57 - Successfully created new Account [name=Zach, password=password, id=68]

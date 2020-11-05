@@ -21,6 +21,12 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	public AccountServiceImpl(CustomCacheServiceImpl<Account> cache) {
+		super();
+		this.cache = cache;
+	}
+
 	/*
 	 * Checks if user exists in the cache based on login information
 	 */
