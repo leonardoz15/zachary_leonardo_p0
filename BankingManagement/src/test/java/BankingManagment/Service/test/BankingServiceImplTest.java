@@ -79,7 +79,7 @@ public class BankingServiceImplTest {
 		Account accountToTest = new Account("Zach","Password",0);
 		cacheService.addToCache(new Banking(accountToTest, 0));
 		bankingService.deposit(accountToTest, amountToAdd);
-		assertEquals("Account balance should be 100", 300, bankingService.retrieveBalance(accountToTest),0);
+		assertEquals("Account balance should be 100", 100, bankingService.retrieveBalance(accountToTest),0);
 	}
 	
 	@Test

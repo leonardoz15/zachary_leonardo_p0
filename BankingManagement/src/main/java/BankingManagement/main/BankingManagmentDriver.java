@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import BankingManagement.pojos.Account;
 import BankingManagement.service.AccountServiceImpl;
-import BankingManagement.service.BankingService;
 import BankingManagement.service.BankingServiceImpl;
 
 /**
@@ -26,20 +25,21 @@ public class BankingManagmentDriver {
 	private static AccountServiceImpl accountService = new AccountServiceImpl();
 	private boolean loggedIn = false;
 	private static Account account = new Account();
+	private static String userInput;
 	
 	public static void main(String[] args) {
 		
-		String userInput;
+		
 		BankingManagmentDriver driver = new BankingManagmentDriver();
 		log.info("Program has started");
 		
-		do {
+		while(!"0".equals(userInput)) {
 			System.out.println("Welcome to the Bank Manager");
 			System.out.println("Please choose one of the following");
 			System.out.println("[1] login");
 			System.out.println("[2] create a new account");
 			System.out.println("[3] manage your account");
-			System.out.println("[4] apply for a loan");
+			System.out.println("[4] apply for a loan (not yet)");
 			System.out.println("[0] exit");
 			
 			userInput = scan.nextLine();
@@ -66,9 +66,7 @@ public class BankingManagmentDriver {
 				log.warn("Invalid input in main menu");
 				break;
 			}
-			
-		} while(!"0".equals(userInput));
-
+		}
 	}
 	
 	public void login() {
@@ -79,11 +77,16 @@ public class BankingManagmentDriver {
 		System.out.println("What is your password?");
 		String password = scan.nextLine();
 		account = accountService.authenticate(name, password);
-		if(account != null) {
-			System.out.println("Successfully logged in to account " + account.toString());
-			loggedIn = true;
-			log.info("Logged in sucessfully to account " + account.toString());
-			manageFunds();
+		try {
+			if(!account.equals(null)) {
+				System.out.println("Successfully logged in");
+				loggedIn = true;
+				log.info("Logged in sucessfully to " + account.toString());
+				manageFunds();
+			}
+		} catch(Exception NullPointerException) {
+			System.out.println("Please create a new account first");
+			loggedIn = false;
 		}
 	}
 	
@@ -98,10 +101,16 @@ public class BankingManagmentDriver {
 	}
 	
 	public void manageFunds() {
+		if(loggedIn == false) {
+			System.out.println("Please login first");
+			login();
+		}
+		
 		String input;
-		if(loggedIn == true) {
-			System.out.println("Would you like to view, add, or remove funds?");
+		do {
+			System.out.println("Would you like to view, add, or remove funds? --- 0 to return to main menu.");
 			input = scan.nextLine();
+			
 			switch(input) {
 			case "view":
 				viewFunds();
@@ -112,19 +121,20 @@ public class BankingManagmentDriver {
 			case "remove":
 				removeFunds();
 				break;
+			case "0":
+				System.out.println("Returning to main menu");
+				break;
 			default:
 				System.out.println("Invalid input");
 				log.warn("Invalid input in manage funds");
+				break;
 			}
-		}
-		else {
-			System.out.println("Please login first");
-			login();
-		}
+		} while(!"0".equals(input));
 	}
 	
 	public void viewFunds() {
 		System.out.println("Current balance: " + bankService.retrieveBalance(account));
+		manageFunds();
 	}
 	
 	public void addFunds() {
@@ -140,6 +150,7 @@ public class BankingManagmentDriver {
 		bankService.withdrawl(account, amount);
 		System.out.println("New balance: " + bankService.retrieveBalance(account));
 	}
+	
 	public void applyForLoan() {
 		
 	}

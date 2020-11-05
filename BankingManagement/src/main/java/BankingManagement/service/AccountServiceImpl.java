@@ -12,9 +12,9 @@ import BankingManagement.pojos.Account;
 public class AccountServiceImpl implements AccountService {
 	
 	private static Logger log = Logger.getRootLogger();
-	Scanner scan = new Scanner(System.in);
+	private static Scanner scan = new Scanner(System.in);
 	
-	CustomCacheServiceImpl<Account> cache = new CustomCacheServiceImpl<>();
+	private CustomCacheServiceImpl<Account> cache = new CustomCacheServiceImpl<>();
 	
 	public AccountServiceImpl() {
 		super();
@@ -48,8 +48,7 @@ public class AccountServiceImpl implements AccountService {
 		int id = (r.nextInt(100));
 		Account account = new Account(name, password, id);
 		cache.addToCache(account);
-		System.out.println("Created new account " + account.toString());
-		log.info("Successfully created new account" + account.toString());
+		log.info("Successfully created new " + account.toString());
 		
 	}
 	

@@ -1,8 +1,5 @@
 package BankingManagement.service;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import org.apache.log4j.Logger;
 
 import BankingManagement.pojos.Account;
@@ -11,7 +8,6 @@ import BankingManagement.pojos.Banking;
 public class BankingServiceImpl implements BankingService {
 	
 	private static Logger log = Logger.getRootLogger();
-	Scanner scan = new Scanner(System.in);
 	
 	private CustomCacheServiceImpl<Banking> bankingCache = new CustomCacheServiceImpl<Banking>();	
 	
@@ -38,8 +34,9 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public void deposit(Account account, int amount) {
-		setBankingCache(bankingCache);
-		
+		if(bankingCache.retrieveAllItems().isEmpty()) {
+			createBank(account);
+		}
 		for( Banking bank : bankingCache.retrieveAllItems()) {
 			if(bank.getAccount().equals(account)) {
 				bank.setCurrentBalance(bank.getCurrentBalance() + amount);
@@ -58,8 +55,9 @@ public class BankingServiceImpl implements BankingService {
 	 */
 	@Override
 	public void withdrawl(Account account, int amount) {
-		setBankingCache(bankingCache);
-
+		if(bankingCache.retrieveAllItems().isEmpty()) {
+			createBank(account);
+		}
 		for( Banking bank : bankingCache.retrieveAllItems()) {
 			if(bank.getAccount().equals(account)) {
 				bank.setCurrentBalance(bank.getCurrentBalance() - amount);
@@ -91,5 +89,12 @@ public class BankingServiceImpl implements BankingService {
 		return 0;
 	}
 	
-
+	/*
+	 * create new bank object and add to banking cache
+	 */
+	@Override
+	public void createBank(Account account) {
+		bankingCache.addToCache(new Banking(account, 0));
+	}
+	
 }
