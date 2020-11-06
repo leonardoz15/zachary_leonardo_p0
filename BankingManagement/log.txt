@@ -289,3 +289,20 @@
 2020-11-05 15:14:59 INFO  root:51 - Successfully created new Account [name=Zach, password=password, id=32]
 2020-11-05 15:18:36 INFO  root:57 - Successfully created new Account [name=Zach, password=password, id=21]
 2020-11-05 15:18:36 INFO  root:57 - Successfully created new Account [name=Zach, password=password, id=68]
+2020-11-05 16:21:08 TRACE root:34 - Program has started
+2020-11-05 16:23:34 TRACE root:95 - Creating new account
+2020-11-05 16:23:39 INFO  root:57 - Successfully created new Account [name=zach, password=pass, id=51]
+2020-11-05 16:30:52 TRACE root:34 - Program has started
+2020-11-05 16:31:32 TRACE root:96 - Creating new account
+2020-11-05 16:31:42 INFO  root:57 - Successfully created new Account [name=zac, password=pass, id=97]
+2020-11-05 16:31:57 TRACE root:75 - Logging in
+2020-11-05 16:32:02 INFO  root:85 - Logged in sucessfully to Account [name=zac, password=pass, id=97]
+2020-11-05 16:32:19 INFO  root:43 - Added 100 to account Account [name=zac, password=pass, id=97]
+2020-11-05 16:32:19 WARN  root:130 - Invalid input in manage funds
+2020-11-05 16:32:34 INFO  root:64 - Removed 50 from account Account [name=zac, password=pass, id=97]
+2020-11-05 16:32:34 WARN  root:130 - Invalid input in manage funds
+2020-11-05 16:33:31 TRACE root:63 - Exiting application
+2020-11-05 16:34:15 INFO  root:57 - Successfully created new Account [name=Zach, password=password, id=80]
+2020-11-05 16:34:15 INFO  root:57 - Successfully created new Account [name=Zach, password=password, id=91]
+2020-11-05 16:34:24 INFO  root:43 - Added 100 to account Account [name=Zach, password=Password, id=0]
+2020-11-05 16:34:24 INFO  root:64 - Removed 100 from account Account [name=Jake, password=word, id=0]

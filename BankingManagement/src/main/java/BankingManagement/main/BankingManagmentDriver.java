@@ -60,6 +60,7 @@ public class BankingManagmentDriver {
 				break;
 			case "0":
 				System.out.println("Thank you");
+				log.trace("Exiting application");
 				break;
 			default:
 				System.out.println("Invalid input");
