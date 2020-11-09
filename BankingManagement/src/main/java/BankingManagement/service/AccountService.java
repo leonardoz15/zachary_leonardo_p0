@@ -4,7 +4,7 @@ import BankingManagement.pojos.Account;
 
 public interface AccountService {
 
-	public boolean authenticate(Account account);
+	public void authenticate(Account account);
 
 	public Account createAccount(Account account);
 	
