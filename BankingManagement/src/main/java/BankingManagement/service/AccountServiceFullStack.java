@@ -16,9 +16,11 @@ public class AccountServiceFullStack implements AccountService {
 	AccountDao accountDao = new AccountDaoPostgres();
 
 	@Override
-	public void authenticate(Account account) {
+	public boolean authenticate(Account account) {
 		Account returned =  new Account();
 		returned = accountDao.readAccount(account.getId());
+		boolean in = returned.equals(account);
+		return in;
 	}
 
 	@Override
