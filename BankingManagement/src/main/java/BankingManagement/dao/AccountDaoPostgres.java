@@ -73,7 +73,32 @@ public class AccountDaoPostgres implements AccountDao {
 
 	@Override
 	public Account updateAccount(int acountId, Account account) {
-		// TODO Auto-generated method stub
+		
+		String sql = "update account set username = ?, password = ? where account_id = ?";
+		
+		try (Connection conn = connUtil.createConnection()){
+			
+			conn.setAutoCommit(false);
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, account.getName());
+			pstmt.setString(2, account.getPassword());
+			pstmt.setInt(3, acountId);
+			
+			Savepoint s1 = conn.setSavepoint();
+			int rowsEffected = pstmt.executeUpdate();
+			
+			if (rowsEffected != 1) {
+				conn.rollback(s1);
+			} else {
+				conn.commit();
+			}
+			
+			conn.setAutoCommit(true);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
