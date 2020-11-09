@@ -1,7 +1,7 @@
 /**
  * 
  */
-package BankingManagment.dao;
+package BankingManagement.dao;
 
 import BankingManagement.pojos.Account;
 
