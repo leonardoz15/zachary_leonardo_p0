@@ -104,8 +104,32 @@ public class AccountDaoPostgres implements AccountDao {
 
 	@Override
 	public void deleteAccount(Account account) {
-		// TODO Auto-generated method stub
-
+		
+		String sql = "delete from account where username = ? and password = ? and account_id = ?";
+		
+		try (Connection conn = connUtil.createConnection()){
+			
+			conn.setAutoCommit(false);
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, account.getName());
+			pstmt.setString(2, account.getPassword());
+			pstmt.setInt(3, account.getId());
+			
+			Savepoint s1 = conn.setSavepoint();
+			int rowsEffected = pstmt.executeUpdate();
+			
+			if (rowsEffected != 1) {
+				conn.rollback(s1);
+			} else {
+				conn.commit();
+			}
+			
+			conn.setAutoCommit(true);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
