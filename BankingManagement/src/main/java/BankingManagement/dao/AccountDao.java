@@ -13,7 +13,7 @@ public interface AccountDao {
 	
 	public void createAccount(Account account);
 	
-	public Account readAccout(int accountId);
+	public Account readAccount(int accountId);
 	
 	public Account readAllAccounts();
 	

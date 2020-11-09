@@ -5,6 +5,7 @@ package BankingManagement.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Statement;
@@ -60,8 +61,23 @@ public class AccountDaoPostgres implements AccountDao {
 	}
 
 	@Override
-	public Account readAccout(int accountId) {
-		// TODO Auto-generated method stub
+	public Account readAccount(int accountId) {
+		
+		String sql = "select * from account where account_id = ?";
+		
+		try (Connection conn = connUtil.createConnection()){
+						
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, accountId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			Account account = rs.getObject(1, Account.class);
+			return account;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
