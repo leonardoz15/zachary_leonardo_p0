@@ -4,9 +4,11 @@ import BankingManagement.pojos.Account;
 
 public interface AccountService {
 
-	public Account authenticate(String name, String password);
+	public boolean authenticate(Account account);
 
-	public void createAccount(String name, String password);
+	public Account createAccount(Account account);
 	
-	public void removeAccount(String name, String password);
+	public void updateAccount(int accountId, Account account);
+	
+	public void removeAccount(Account account);
 }
