@@ -13,6 +13,8 @@ public class Banking {
 	
 	private double currentBalance;
 	
+	private int creditScore;
+	
 	/**
 	 *  Java object for holding banking information tied to an account
 	 */
@@ -20,11 +22,25 @@ public class Banking {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Banking(Account account) {
+		super();
+		this.account = account;
+		this.currentBalance = 0;
+		this.creditScore = 0;
+	}
 
 	public Banking(Account account, double currentBalance) {
 		super();
 		this.account = account;
 		this.currentBalance = currentBalance;
+		this.creditScore = 0;
+	}
+	
+	public Banking(Account account, double currentBalance, int creditScore) {
+		super();
+		this.account = account;
+		this.currentBalance = currentBalance;
+		this.creditScore = creditScore;
 	}
 
 	/**
@@ -53,6 +69,20 @@ public class Banking {
 	 */
 	public void setCurrentBalance(double currentBalance) {
 		this.currentBalance = currentBalance;
+	}
+
+	/**
+	 * @return the creditScore
+	 */
+	public int getCreditScore() {
+		return creditScore;
+	}
+
+	/**
+	 * @param creditScore the creditScore to set
+	 */
+	public void setCreditScore(int creditScore) {
+		this.creditScore = creditScore;
 	}
 
 	@Override

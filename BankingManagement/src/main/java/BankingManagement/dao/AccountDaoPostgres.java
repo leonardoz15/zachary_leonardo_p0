@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import BankingManagement.pojos.Account;
 import BankingManagement.util.ConnectionUtil;
@@ -18,8 +19,6 @@ import BankingManagement.util.ConnectionUtil;
  *
  */
 public class AccountDaoPostgres implements AccountDao {
-	
-	private Statement statement;
 	
 	private ConnectionUtil connUtil = new ConnectionUtil();
 
@@ -82,7 +81,7 @@ public class AccountDaoPostgres implements AccountDao {
 	}
 
 	@Override
-	public Account readAllAccounts() {
+	public ArrayList<Account> readAllAccounts() {
 		// TODO Auto-generated method stub
 		return null;
 	}
