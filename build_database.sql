@@ -30,6 +30,11 @@ insert into loan (principal, min_credit) values (10000, 600);
 
 insert into banking (account_id,loan_id,current_balance,credit_score) values (1, null, 100, 700);
 
+insert into account (username,password) values ('wowow','pass');
+
+delete from account where username = 'wowow' and password = 'pass';
 select * from account;
 select * from loan;
 select * from banking;
+select pg_get_serial_sequence('account','account_id');
+select setval('public.account_account_id_seq', 1, false);

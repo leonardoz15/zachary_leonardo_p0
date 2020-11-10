@@ -20,7 +20,7 @@ public class AccountController {
 			String username = ctx.formParam("username");
 			String password = ctx.formParam("password");
 			
-			Account account = new Account(username,password);
+			account = new Account(username,password);
 			
 			ctx.html("Created account: " + accountService.createAccount(account).toString());
 			
@@ -31,8 +31,10 @@ public class AccountController {
 			String username = ctx.formParam("username");
 			String password = ctx.formParam("password");
 			
-			Account account = new Account(username,password);
+			account.setName(username);
+			account.setPassword(password);
 			accountService.removeAccount(account);
 			ctx.html("Removed account with ID: " + account.getId());
 		}
+
 }
