@@ -1,6 +1,8 @@
 package BankingManagement.pojos;
 
 public class Account {
+	
+	private static int count;
 
 	private String name;
 	
@@ -11,8 +13,18 @@ public class Account {
 	/*
 	 * Java object for holding account information
 	 */
+	public Account(String name, String password) {
+		super();
+		Account.count++;
+		this.id = Account.count;
+		this.name = name;
+		this.password = password;
+		this.id = id;
+	}
+	
 	public Account(String name, String password, int id) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.id = id;
