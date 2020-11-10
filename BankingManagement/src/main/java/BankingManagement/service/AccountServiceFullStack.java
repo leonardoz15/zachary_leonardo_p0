@@ -13,7 +13,7 @@ import BankingManagement.pojos.Account;
  */
 public class AccountServiceFullStack implements AccountService {
 	
-	AccountDao accountDao = new AccountDaoPostgres();
+	private AccountDao accountDao = new AccountDaoPostgres();
 
 	@Override
 	public boolean authenticate(Account account) {

@@ -1,14 +1,15 @@
 package BankingManagement.service;
 
 import BankingManagement.pojos.Account;
+import BankingManagement.pojos.Banking;
 
 public interface BankingService {
 	
-	public void createBank(Account account);
+	public Banking createBank(Banking bank);
 	
-	public void deposit(Account account, int amount);
+	public void deposit(Banking bank, int amount);
 	
-	public void withdrawl(Account account, int amount);
+	public void withdrawl(Banking bank, int amount);
 	
-	public double retrieveBalance(Account account);
+	public double retrieveBalance(Banking bank);
 }

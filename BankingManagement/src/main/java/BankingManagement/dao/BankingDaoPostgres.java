@@ -31,7 +31,7 @@ public class BankingDaoPostgres implements BankingDao {
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bank.getAccount().getId());
-			pstmt.setInt(2, 0); 										//TODO:loan implementation
+			pstmt.setNull(2, java.sql.Types.INTEGER); 										//TODO:loan implementation
 			pstmt.setInt(3, (int)bank.getCurrentBalance());
 			pstmt.setInt(4, bank.getCreditScore());
 			

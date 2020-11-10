@@ -90,6 +90,7 @@ public class Banking {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
+		result = prime * result + creditScore;
 		long temp;
 		temp = Double.doubleToLongBits(currentBalance);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -110,6 +111,8 @@ public class Banking {
 				return false;
 		} else if (!account.equals(other.account))
 			return false;
+		if (creditScore != other.creditScore)
+			return false;
 		if (Double.doubleToLongBits(currentBalance) != Double.doubleToLongBits(other.currentBalance))
 			return false;
 		return true;
@@ -117,9 +120,9 @@ public class Banking {
 
 	@Override
 	public String toString() {
-		return "Banking [account=" + account.toString() + ", currentBalance=" + currentBalance + "]";
+		return "Banking [account=" + account + ", currentBalance=" + currentBalance + ", creditScore=" + creditScore
+				+ "]";
 	}
-	
-	
+
 	
 }

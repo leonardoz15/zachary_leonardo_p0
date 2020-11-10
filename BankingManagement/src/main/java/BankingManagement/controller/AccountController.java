@@ -9,11 +9,9 @@ import io.javalin.http.Context;
 
 public class AccountController {
 
-		AccountService accountService = new AccountServiceFullStack();
+		private AccountService accountService = new AccountServiceFullStack();
 		
-		AccountDao accountDao = new AccountDaoPostgres();
-		
-		Account account;
+		public static Account account;
 		
 		public void createAccount(Context ctx) {
 			

@@ -70,7 +70,12 @@ public class AccountDaoPostgres implements AccountDao {
 			pstmt.setInt(1, accountId);
 			
 			ResultSet rs = pstmt.executeQuery();
-			Account account = rs.getObject(1, Account.class);
+			Account account = new Account();
+			while(rs.next()) {
+				account.setId(rs.getInt(1));
+				account.setName(rs.getString(2));
+				account.setPassword(rs.getString(3));
+			}
 			return account;
 			
 		} catch (SQLException e) {
