@@ -5,10 +5,12 @@ package BankingManagement.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.ArrayList;
 
+import BankingManagement.pojos.Account;
 import BankingManagement.pojos.Banking;
 import BankingManagement.util.ConnectionUtil;
 
@@ -53,8 +55,25 @@ public class BankingDaoPostgres implements BankingDao {
 	}
 
 	@Override
-	public Banking readBanking(int bankingId) {
-		// TODO Auto-generated method stub
+	public Banking readBanking(Banking bank) {
+		
+		String sql = "select * from banking where account_id = ?";
+		
+		try (Connection conn = connUtil.createConnection()){
+						
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bank.getAccount().getId());
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				bank.setCurrentBalance((rs.getInt(4)));
+				bank.setCreditScore((rs.getInt(5)));
+			}
+			return bank;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -65,8 +84,32 @@ public class BankingDaoPostgres implements BankingDao {
 	}
 
 	@Override
-	public Banking updateBanking(int bankingId, Banking bank) {
-		// TODO Auto-generated method stub
+	public Banking updateBanking(int amount, Banking bank) {
+		
+		String sql = "update banking set current_balance = ? where account_id = ?";
+		
+		try (Connection conn = connUtil.createConnection()){
+			
+			conn.setAutoCommit(false);
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, amount);
+			pstmt.setInt(2, bank.getAccount().getId());
+			
+			Savepoint s1 = conn.setSavepoint();
+			int rowsEffected = pstmt.executeUpdate();
+			
+			if (rowsEffected != 1) {
+				conn.rollback(s1);
+			} else {
+				conn.commit();
+			}
+			
+			conn.setAutoCommit(true);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

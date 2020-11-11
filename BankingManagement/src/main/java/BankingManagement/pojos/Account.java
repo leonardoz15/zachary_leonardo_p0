@@ -19,7 +19,6 @@ public class Account {
 		this.id = Account.count;
 		this.name = name;
 		this.password = password;
-		this.id = id;
 	}
 	
 	public Account(String name, String password, int id) {

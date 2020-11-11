@@ -92,7 +92,7 @@ public class AccountDaoPostgres implements AccountDao {
 	}
 
 	@Override
-	public Account updateAccount(int acountId, Account account) {
+	public Account updateAccount(int accountId, Account account) {
 		
 		String sql = "update account set username = ?, password = ? where account_id = ?";
 		
@@ -103,7 +103,7 @@ public class AccountDaoPostgres implements AccountDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, account.getName());
 			pstmt.setString(2, account.getPassword());
-			pstmt.setInt(3, acountId);
+			pstmt.setInt(3, accountId);
 			
 			Savepoint s1 = conn.setSavepoint();
 			int rowsEffected = pstmt.executeUpdate();

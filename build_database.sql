@@ -36,5 +36,16 @@ delete from account where username = 'wowow' and password = 'pass';
 select * from account;
 select * from loan;
 select * from banking;
-select pg_get_serial_sequence('account','account_id');
-select setval('public.account_account_id_seq', 1, false);
+
+call reset_all();
+
+create or replace procedure reset_all()
+as 
+$$
+begin 
+	delete from account;
+	delete from banking;
+	perform setval('public.account_account_id_seq', 1, false);
+	perform setval('public.banking_banking_id_seq', 1, false);
+end;
+$$ language plpgsql;

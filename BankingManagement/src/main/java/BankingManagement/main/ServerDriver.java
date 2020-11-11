@@ -10,12 +10,16 @@ public class ServerDriver {
 	
 	private static BankingController bankingController = new BankingController();
 	
+	public static final String ACCOUNT_PATH = "/BM/account";
+	
+	public static final String BANKING_PATH = "/BM/banking";
+	
 	public static void main(String[] args) {
 		Javalin app = Javalin.create().start(9090);
 		app.get("/BM", ctx -> ctx.html("Welcome to the Bank Management App"));
-		app.post("/BM/createAccount", ctx -> accountController.createAccount(ctx));
-		app.delete("/BM/deleteAccount", ctx -> accountController.deleteAccount(ctx));
-		app.post("/BM/createBanking", ctx -> bankingController.createBanking(ctx));
+		app.post(ACCOUNT_PATH, ctx -> accountController.createAccount(ctx));
+		app.delete(ACCOUNT_PATH, ctx -> accountController.deleteAccount(ctx));
+		app.post(BANKING_PATH, ctx -> bankingController.createBanking(ctx));
 		
 	}
 

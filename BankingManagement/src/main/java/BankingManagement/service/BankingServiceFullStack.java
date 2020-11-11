@@ -18,26 +18,39 @@ public class BankingServiceFullStack implements BankingService {
 
 	@Override
 	public Banking createBank(Banking bank) {
+		
 		bankingDao.createBanking(bank);
 		return bank;
 	}
 
 	@Override
 	public void deposit(Banking bank, int amount) {
-		// TODO Auto-generated method stub
+		
+		double balance = retrieveBalance(bank);
+		double newBalance = balance + amount;
+		
+		bankingDao.updateBanking((int)newBalance, bank);
 		
 	}
 
 	@Override
 	public void withdrawl(Banking bank, int amount) {
-		// TODO Auto-generated method stub
 		
+		double balance = retrieveBalance(bank);
+		if (balance >= amount) {
+			double newBalance = balance - amount;
+			bankingDao.updateBanking((int)newBalance, bank);
+		}
+		else {
+			//log
+		}
 	}
 
 	@Override
 	public double retrieveBalance(Banking bank) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		bank = bankingDao.readBanking(bank);
+		return bank.getCurrentBalance();
 	}
 	
 	

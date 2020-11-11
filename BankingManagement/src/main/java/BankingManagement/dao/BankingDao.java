@@ -16,11 +16,11 @@ public interface BankingDao {
 	
 	public void createBanking(Banking bank);
 	
-	public Banking readBanking(int bankingId);
+	public Banking readBanking(Banking bank);
 	
 	public ArrayList<Banking> readAllBankings();
 	
-	public Banking updateBanking(int bankingId, Banking bank);
+	public Banking updateBanking(int amount, Banking bank);
 	
 	public void deleteBanking(Banking bank);
 
