@@ -6,6 +6,7 @@ package BankingManagement.service;
 import BankingManagement.dao.AccountDao;
 import BankingManagement.dao.AccountDaoPostgres;
 import BankingManagement.pojos.Account;
+import org.apache.log4j.Logger;
 
 /**
  * @author Zachary Leonardo
@@ -13,14 +14,25 @@ import BankingManagement.pojos.Account;
  */
 public class AccountServiceFullStack implements AccountService {
 	
-	AccountDao accountDao = new AccountDaoPostgres();
+	private AccountDao accountDao = new AccountDaoPostgres();
+	
+	private static Logger log = Logger.getRootLogger();
 
 	@Override
 	public boolean authenticate(Account account) {
 		Account returned =  new Account();
-		returned = accountDao.readAccount(account.getId());
-		boolean in = returned.equals(account);
-		return in;
+		if (account != null) {
+			returned = accountDao.readAccount(account.getId());
+			if(returned.getName().equals(account.getName()) & returned.getPassword().equals(account.getPassword())) {
+				return true;
+			} else {
+				log.warn("Account doesnt match account in database " + returned.toString());
+				return false;
+			}
+		} else {
+			log.warn("Account doesn't exist in database");
+			return false;
+		}
 	}
 
 	@Override
@@ -36,7 +48,7 @@ public class AccountServiceFullStack implements AccountService {
 
 	@Override
 	public void removeAccount(Account account) {
-		accountDao.deleteAccount(account);	
+		accountDao.deleteAccount(account);			
 	}
 
 

@@ -24,12 +24,25 @@ foreign key (account_id) references Account (account_id) on delete cascade on up
 alter table Banking add constraint FK_loan_id
 foreign key (loan_id) references Loan (loan_id) on delete cascade on update cascade;
 
-insert into account (username,password) values ('zach','pass');
 
-insert into loan (principal, min_credit) values (10000, 600);
+-----------------------------------------------------------------------------------------
 
-insert into banking (account_id,loan_id,current_balance,credit_score) values (1, null, 100, 700);
+
+
 
 select * from account;
 select * from loan;
 select * from banking;
+
+call reset_all();
+
+create or replace procedure reset_all()
+as 
+$$
+begin 
+	delete from account;
+	delete from banking;
+	perform setval('public.account_account_id_seq', 1, false);
+	perform setval('public.banking_banking_id_seq', 1, false);
+end;
+$$ language plpgsql;

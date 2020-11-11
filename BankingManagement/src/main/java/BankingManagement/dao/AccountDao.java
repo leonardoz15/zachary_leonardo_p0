@@ -3,6 +3,8 @@
  */
 package BankingManagement.dao;
 
+import java.util.ArrayList;
+
 import BankingManagement.pojos.Account;
 
 /**
@@ -15,7 +17,7 @@ public interface AccountDao {
 	
 	public Account readAccount(int accountId);
 	
-	public Account readAllAccounts();
+	public ArrayList<Account> readAllAccounts();
 	
 	public Account updateAccount(int acountId, Account account);
 	

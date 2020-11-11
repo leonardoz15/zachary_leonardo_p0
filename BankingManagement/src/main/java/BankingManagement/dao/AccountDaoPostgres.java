@@ -9,9 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import BankingManagement.pojos.Account;
 import BankingManagement.util.ConnectionUtil;
+import org.apache.log4j.Logger;
 
 /**
  * @author Zachary Leonardo
@@ -19,9 +21,9 @@ import BankingManagement.util.ConnectionUtil;
  */
 public class AccountDaoPostgres implements AccountDao {
 	
-	private Statement statement;
-	
 	private ConnectionUtil connUtil = new ConnectionUtil();
+	
+	private static Logger log = Logger.getRootLogger();
 
 	/**
 	 * @param connUtil the connUtil to set
@@ -47,6 +49,7 @@ public class AccountDaoPostgres implements AccountDao {
 			int rowsEffected = pstmt.executeUpdate();
 			
 			if (rowsEffected != 1) {
+				log.warn("More than one account created, rolling back");
 				conn.rollback(s1);
 			} else {
 				conn.commit();
@@ -71,7 +74,12 @@ public class AccountDaoPostgres implements AccountDao {
 			pstmt.setInt(1, accountId);
 			
 			ResultSet rs = pstmt.executeQuery();
-			Account account = rs.getObject(1, Account.class);
+			Account account = new Account();
+			while(rs.next()) {
+				account.setId(rs.getInt(1));
+				account.setName(rs.getString(2));
+				account.setPassword(rs.getString(3));
+			}
 			return account;
 			
 		} catch (SQLException e) {
@@ -82,13 +90,13 @@ public class AccountDaoPostgres implements AccountDao {
 	}
 
 	@Override
-	public Account readAllAccounts() {
+	public ArrayList<Account> readAllAccounts() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Account updateAccount(int acountId, Account account) {
+	public Account updateAccount(int accountId, Account account) {
 		
 		String sql = "update account set username = ?, password = ? where account_id = ?";
 		
@@ -99,13 +107,14 @@ public class AccountDaoPostgres implements AccountDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, account.getName());
 			pstmt.setString(2, account.getPassword());
-			pstmt.setInt(3, acountId);
+			pstmt.setInt(3, accountId);
 			
 			Savepoint s1 = conn.setSavepoint();
 			int rowsEffected = pstmt.executeUpdate();
 			
 			if (rowsEffected != 1) {
 				conn.rollback(s1);
+				log.warn("More than one account updated, rolling back");
 			} else {
 				conn.commit();
 			}
@@ -136,6 +145,7 @@ public class AccountDaoPostgres implements AccountDao {
 			int rowsEffected = pstmt.executeUpdate();
 			
 			if (rowsEffected != 1) {
+				log.warn("More than one account updated, rolling back");
 				conn.rollback(s1);
 			} else {
 				conn.commit();

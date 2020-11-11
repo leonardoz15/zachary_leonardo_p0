@@ -13,6 +13,8 @@ public class Banking {
 	
 	private double currentBalance;
 	
+	private int creditScore;
+	
 	/**
 	 *  Java object for holding banking information tied to an account
 	 */
@@ -20,11 +22,25 @@ public class Banking {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Banking(Account account) {
+		super();
+		this.account = account;
+		this.currentBalance = 0;
+		this.creditScore = 0;
+	}
 
 	public Banking(Account account, double currentBalance) {
 		super();
 		this.account = account;
 		this.currentBalance = currentBalance;
+		this.creditScore = 0;
+	}
+	
+	public Banking(Account account, double currentBalance, int creditScore) {
+		super();
+		this.account = account;
+		this.currentBalance = currentBalance;
+		this.creditScore = creditScore;
 	}
 
 	/**
@@ -55,11 +71,26 @@ public class Banking {
 		this.currentBalance = currentBalance;
 	}
 
+	/**
+	 * @return the creditScore
+	 */
+	public int getCreditScore() {
+		return creditScore;
+	}
+
+	/**
+	 * @param creditScore the creditScore to set
+	 */
+	public void setCreditScore(int creditScore) {
+		this.creditScore = creditScore;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
+		result = prime * result + creditScore;
 		long temp;
 		temp = Double.doubleToLongBits(currentBalance);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -80,6 +111,8 @@ public class Banking {
 				return false;
 		} else if (!account.equals(other.account))
 			return false;
+		if (creditScore != other.creditScore)
+			return false;
 		if (Double.doubleToLongBits(currentBalance) != Double.doubleToLongBits(other.currentBalance))
 			return false;
 		return true;
@@ -87,9 +120,9 @@ public class Banking {
 
 	@Override
 	public String toString() {
-		return "Banking [account=" + account.toString() + ", currentBalance=" + currentBalance + "]";
+		return "Banking [account=" + account + ", currentBalance=" + currentBalance + ", creditScore=" + creditScore
+				+ "]";
 	}
-	
-	
+
 	
 }
