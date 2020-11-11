@@ -24,15 +24,12 @@ foreign key (account_id) references Account (account_id) on delete cascade on up
 alter table Banking add constraint FK_loan_id
 foreign key (loan_id) references Loan (loan_id) on delete cascade on update cascade;
 
-insert into account (username,password) values ('zach','pass');
 
-insert into loan (principal, min_credit) values (10000, 600);
+-----------------------------------------------------------------------------------------
 
-insert into banking (account_id,loan_id,current_balance,credit_score) values (1, null, 100, 700);
 
-insert into account (username,password) values ('wowow','pass');
 
-delete from account where username = 'wowow' and password = 'pass';
+
 select * from account;
 select * from loan;
 select * from banking;
