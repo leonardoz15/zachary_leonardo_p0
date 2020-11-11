@@ -23,10 +23,14 @@ public class AccountServiceFullStack implements AccountService {
 		Account returned =  new Account();
 		if (account != null) {
 			returned = accountDao.readAccount(account.getId());
-			boolean in = returned.equals(account);
-			return in;
+			if(returned.getName().equals(account.getName()) & returned.getPassword().equals(account.getPassword())) {
+				return true;
+			} else {
+				log.warn("Account doesnt match account in database " + returned.toString());
+				return false;
+			}
 		} else {
-			log.warn("Account " + account.toString() + " doesnt match account in database " + returned.toString());
+			log.warn("Account doesn't exist in database");
 			return false;
 		}
 	}
@@ -44,7 +48,7 @@ public class AccountServiceFullStack implements AccountService {
 
 	@Override
 	public void removeAccount(Account account) {
-		accountDao.deleteAccount(account);	
+		accountDao.deleteAccount(account);			
 	}
 
 

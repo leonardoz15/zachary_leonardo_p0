@@ -14,6 +14,8 @@ public class AccountController {
 		
 		public static Account account;
 		
+		public static Account accountToDelete;
+		
 		private static Logger log = Logger.getRootLogger();
 		
 		public void createAccount(Context ctx) {
@@ -34,15 +36,22 @@ public class AccountController {
 			String username = ctx.formParam("username");
 			String password = ctx.formParam("password");
 			
-			account.setName(username);
-			account.setPassword(password);
+			accountToDelete = new Account(username,password,account.getId());
 			
-			accountService.removeAccount(account);
-			
-			ctx.html("Removed account with ID: " + account.getId());
-			
-			log.info("Removed account: " + account.toString());
-			
+			if (accountService.authenticate(accountToDelete)) {
+				
+				accountService.removeAccount(accountToDelete);
+				
+				ctx.html("Removed account with ID: " + account.getId());
+				
+				log.info("Removed account: " + account.toString());
+				
+			} else {
+				
+				ctx.html("Error authenticating account");
+				ctx.status(500);
+				log.error("Failed authentication");
+			}
 		}
 
 }

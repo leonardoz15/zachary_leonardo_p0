@@ -145,6 +145,7 @@ public class AccountDaoPostgres implements AccountDao {
 			int rowsEffected = pstmt.executeUpdate();
 			
 			if (rowsEffected != 1) {
+				log.warn("More than one account updated, rolling back");
 				conn.rollback(s1);
 			} else {
 				conn.commit();
