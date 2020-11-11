@@ -20,6 +20,8 @@ public class ServerDriver {
 		app.post(ACCOUNT_PATH, ctx -> accountController.createAccount(ctx));
 		app.delete(ACCOUNT_PATH, ctx -> accountController.deleteAccount(ctx));
 		app.post(BANKING_PATH, ctx -> bankingController.createBanking(ctx));
+		app.patch(BANKING_PATH, ctx -> bankingController.depositFunds(ctx));
+		app.patch(BANKING_PATH + "/withdrawl", ctx -> bankingController.withdrawlFunds(ctx));
 		
 	}
 

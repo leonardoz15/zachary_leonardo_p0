@@ -37,7 +37,42 @@ public class BankingController {
 		} else {
 			
 			ctx.html("Error authenticating account");
+			ctx.status(500);
 		}		
+	}
+	
+	public void depositFunds(Context ctx) {
+		
+		double deposit = Double.parseDouble(ctx.formParam("deposit"));
+		
+		if (accountService.authenticate(AccountController.account)) {
+			
+			bankingService.deposit(bank, deposit);
+			
+			ctx.html("Successfully deposited " + deposit + "\nNew balance : " + bankingService.retrieveBalance(bank));
+			
+		} else {
+			
+			ctx.html("Error authenticating account");
+			ctx.status(500);
+		}	
+	}
+	
+	public void withdrawlFunds(Context ctx) {
+		
+		double withdrawl = Double.parseDouble(ctx.formParam("withdrawl"));
+		
+		if (accountService.authenticate(AccountController.account)) {
+			
+			bankingService.withdrawl(bank, withdrawl);
+			
+			ctx.html("Successfully withdrew " + withdrawl + "\nNew balance : " + bankingService.retrieveBalance(bank));
+			
+		} else {
+			
+			ctx.html("Error authenticating account");
+			ctx.status(500);
+		}	
 	}
 
 }

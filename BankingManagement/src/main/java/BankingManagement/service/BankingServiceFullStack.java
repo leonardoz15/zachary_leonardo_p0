@@ -24,7 +24,7 @@ public class BankingServiceFullStack implements BankingService {
 	}
 
 	@Override
-	public void deposit(Banking bank, int amount) {
+	public void deposit(Banking bank, double amount) {
 		
 		double balance = retrieveBalance(bank);
 		double newBalance = balance + amount;
@@ -34,7 +34,7 @@ public class BankingServiceFullStack implements BankingService {
 	}
 
 	@Override
-	public void withdrawl(Banking bank, int amount) {
+	public void withdrawl(Banking bank, double amount) {
 		
 		double balance = retrieveBalance(bank);
 		if (balance >= amount) {
