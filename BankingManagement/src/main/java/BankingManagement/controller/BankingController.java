@@ -9,6 +9,7 @@ import BankingManagement.service.BankingService;
 import BankingManagement.service.BankingServiceFullStack;
 import io.javalin.http.Context;
 import BankingManagement.pojos.Banking;
+import org.apache.log4j.Logger;
 
 /**
  * @author Zachary Leonardo
@@ -22,6 +23,8 @@ public class BankingController {
 	
 	public Banking bank;
 	
+	private static Logger log = Logger.getRootLogger();
+	
 	public void createBanking(Context ctx) {
 		
 		double currentBalance = Double.parseDouble(ctx.formParam("balance"));
@@ -33,10 +36,13 @@ public class BankingController {
 			
 			ctx.html("Created banking: " + bankingService.createBank(bank).toString());
 			
+			log.info("Created banking " + bank.toString());
+			
 		} else {
 			
 			ctx.html("Error authenticating account");
 			ctx.status(500);
+			log.error("Failed authentication");
 		}		
 	}
 	
@@ -54,6 +60,7 @@ public class BankingController {
 			
 			ctx.html("Error authenticating account");
 			ctx.status(500);
+			log.error("Failed authentication");
 		}	
 	}
 	
@@ -71,6 +78,7 @@ public class BankingController {
 			
 			ctx.html("Error authenticating account");
 			ctx.status(500);
+			log.error("Failed authentication");
 		}	
 	}
 

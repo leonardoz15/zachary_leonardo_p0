@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import BankingManagement.pojos.Account;
 import BankingManagement.pojos.Banking;
 import BankingManagement.util.ConnectionUtil;
+import org.apache.log4j.Logger;
 
 /**
  * @author Zachary Leonardo
@@ -21,6 +22,8 @@ import BankingManagement.util.ConnectionUtil;
 public class BankingDaoPostgres implements BankingDao {
 	
 	private ConnectionUtil connUtil = new ConnectionUtil();
+	
+	private static Logger log = Logger.getRootLogger();
 
 	@Override
 	public void createBanking(Banking bank) {
@@ -33,7 +36,7 @@ public class BankingDaoPostgres implements BankingDao {
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bank.getAccount().getId());
-			pstmt.setNull(2, java.sql.Types.INTEGER); 										//TODO:loan implementation
+			pstmt.setNull(2, java.sql.Types.INTEGER); 				//TODO:loan implementation
 			pstmt.setInt(3, (int)bank.getCurrentBalance());
 			pstmt.setInt(4, bank.getCreditScore());
 			
@@ -41,6 +44,7 @@ public class BankingDaoPostgres implements BankingDao {
 			int rowsEffected = pstmt.executeUpdate();
 			
 			if (rowsEffected != 1) {
+				log.warn("More than one banking created, rolling back");
 				conn.rollback(s1);
 			} else {
 				conn.commit();
@@ -100,6 +104,7 @@ public class BankingDaoPostgres implements BankingDao {
 			int rowsEffected = pstmt.executeUpdate();
 			
 			if (rowsEffected != 1) {
+				log.warn("More than one banking updated, rolling back");
 				conn.rollback(s1);
 			} else {
 				conn.commit();

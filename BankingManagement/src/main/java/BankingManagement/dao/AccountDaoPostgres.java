@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import BankingManagement.pojos.Account;
 import BankingManagement.util.ConnectionUtil;
+import org.apache.log4j.Logger;
 
 /**
  * @author Zachary Leonardo
@@ -21,6 +22,8 @@ import BankingManagement.util.ConnectionUtil;
 public class AccountDaoPostgres implements AccountDao {
 	
 	private ConnectionUtil connUtil = new ConnectionUtil();
+	
+	private static Logger log = Logger.getRootLogger();
 
 	/**
 	 * @param connUtil the connUtil to set
@@ -46,6 +49,7 @@ public class AccountDaoPostgres implements AccountDao {
 			int rowsEffected = pstmt.executeUpdate();
 			
 			if (rowsEffected != 1) {
+				log.warn("More than one account created, rolling back");
 				conn.rollback(s1);
 			} else {
 				conn.commit();
@@ -110,6 +114,7 @@ public class AccountDaoPostgres implements AccountDao {
 			
 			if (rowsEffected != 1) {
 				conn.rollback(s1);
+				log.warn("More than one account updated, rolling back");
 			} else {
 				conn.commit();
 			}
