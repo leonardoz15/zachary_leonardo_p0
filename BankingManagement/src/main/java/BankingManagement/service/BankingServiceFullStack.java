@@ -5,7 +5,6 @@ package BankingManagement.service;
 
 import BankingManagement.dao.BankingDao;
 import BankingManagement.dao.BankingDaoPostgres;
-import BankingManagement.pojos.Account;
 import BankingManagement.pojos.Banking;
 
 /**

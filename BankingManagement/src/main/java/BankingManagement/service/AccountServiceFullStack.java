@@ -18,9 +18,13 @@ public class AccountServiceFullStack implements AccountService {
 	@Override
 	public boolean authenticate(Account account) {
 		Account returned =  new Account();
-		returned = accountDao.readAccount(account.getId());
-		boolean in = returned.equals(account);
-		return in;
+		if (account != null) {
+			returned = accountDao.readAccount(account.getId());
+			boolean in = returned.equals(account);
+			return in;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
